@@ -1,7 +1,7 @@
+// src/controllers/BaseController.ts
 import { Request, Response } from 'express';
 
 export abstract class BaseController {
-    // Common method for sending a success response
     protected sendSuccess(res: Response, data: any, message: string = 'Success') {
         res.status(200).json({
             status: 'success',
@@ -10,7 +10,6 @@ export abstract class BaseController {
         });
     }
 
-    // Common method for sending an error response
     protected sendError(res: Response, message: string = 'Error', statusCode: number = 400) {
         res.status(statusCode).json({
             status: 'error',

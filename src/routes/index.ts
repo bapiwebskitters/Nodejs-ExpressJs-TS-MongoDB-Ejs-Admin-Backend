@@ -19,9 +19,9 @@ const apiLimiter = rateLimit({
 });
 
 // Mount web routes
-router.use(webRoutes);
+// router.use(webRoutes);
 // Apply rate limiting to API routes
-// router.use('/api', apiLimiter, apiRoutes);
+router.use('/api', apiLimiter, apiRoutes);
 
 // Global error handling middleware
 router.use((err: Error, req: Request, res: Response, next: NextFunction) => {

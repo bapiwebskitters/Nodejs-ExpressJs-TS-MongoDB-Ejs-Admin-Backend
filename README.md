@@ -28,6 +28,7 @@ project-root/
 │   │   │   ├── product.ts
 │   │   │   ├── index.ts 
 │   │   ├── index.ts        # Main controller index
+│   ├── interfaces/         # Interfaces pattern for data access
 │   ├── middlewares/        # Custom middleware (auth, file uploads, validation)
 │   │   ├── auth.ts
 │   │   ├── uploads.ts

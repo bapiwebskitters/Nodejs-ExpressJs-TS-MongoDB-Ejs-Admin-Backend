@@ -8,7 +8,9 @@ import RedisStore from 'connect-redis';
 import { createClient } from 'redis';
 import routes from '../routes';
 import expressLayouts from 'express-ejs-layouts';
-
+import { JWT_SECRET } from '../config/index';
+import dotenv from 'dotenv';
+dotenv.config();
 const setupExpressApp = async (app: Application) => {
     // Create a Redis client
     const redisClient = createClient({
@@ -35,7 +37,7 @@ const setupExpressApp = async (app: Application) => {
     app.use(express.urlencoded({ extended: true }));
     app.use(session({
         store: new RedisStore({ client: redisClient }),
-        secret: process.env.SESSION_SECRET || 'your-secret',
+        secret: JWT_SECRET,
         resave: false,
         saveUninitialized: false,
     }));

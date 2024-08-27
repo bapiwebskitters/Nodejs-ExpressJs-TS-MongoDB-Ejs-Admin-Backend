@@ -3,11 +3,12 @@ import passport from 'passport';
 import { Strategy as JwtStrategy, ExtractJwt } from 'passport-jwt';
 import { Strategy as LocalStrategy } from 'passport-local';
 import User from '../models/User';
+import { JWT_SECRET } from '../config';
 
 // JWT Strategy for API Authentication
 const jwtOptions = {
   jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-  secretOrKey: process.env.JWT_SECRET || 'your_jwt_secret',
+  secretOrKey: JWT_SECRET,
 };
 
 passport.use('jwt', new JwtStrategy(jwtOptions, async (jwtPayload, done) => {
