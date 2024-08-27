@@ -9,6 +9,7 @@ import expressLayouts from "express-ejs-layouts";
 import { JWT_SECRET } from "../config/index";
 import dotenv from "dotenv";
 dotenv.config();
+
 const setupExpressApp = async (app: Application) => {
   // Initialize NamedRoutes
   const namedRoutes = new NamedRoutes();
@@ -20,32 +21,31 @@ const setupExpressApp = async (app: Application) => {
   app.set("view engine", "ejs");
   app.set("views", path.join(__dirname, "../views"));
   app.set("layout", "layouts/mainlayout");
+  
+  //
+  const imagePath = path.join(__dirname, "../public/images");
+  app.use("/images", express.static(imagePath));
 
   // Middleware setup
   app.use(express.json());
   app.use(express.urlencoded({ extended: true }));
 
-  // Session setup with default in-memory store
+  // Session setup
   app.use(
     session({
-      secret: JWT_SECRET, // Use a secret key to sign the session ID cookie
-      resave: false, // Don't save session if unmodified
-      saveUninitialized: false, // Don't create session until something is stored
+      secret: JWT_SECRET,
+      resave: false,
+      saveUninitialized: false,
       cookie: {
-        // Cookie settings
-        secure: process.env.NODE_ENV === "production", // Use secure cookies in production
-        httpOnly: true, // Helps prevent cross-site scripting attacks
-        maxAge: 1000 * 60 * 60 * 24, // 1 day in milliseconds
+        secure: process.env.NODE_ENV === "production",
+        maxAge: 1000 * 60 * 60 * 24,
       },
     })
   );
 
-  // Initialize Passport and its session management
+  // Initialize Passport
   app.use(passport.initialize());
   app.use(passport.session());
-
-  const imagePath = path.join(__dirname, "../public/images");
-  app.use("/images", express.static(imagePath));
 
   // Initialize Routes
   app.use(routes);

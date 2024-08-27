@@ -1,16 +1,10 @@
 import { Request, Response } from 'express';
-import { BaseController } from '../BaseController';
 
-export class HomeController extends BaseController {
+export class HomeController {
     // Handle dashboard request
     public dashboard(req: Request, res: Response): void {
+        console.log('dashboard');
         // Render the dashboard view with user data
-        res.render('dashboard', { title: 'Admin Login',  user: req.user });
-    }
-
-    // Implement abstract method from BaseController
-    public handleRequest(req: Request, res: Response): void {
-        // Example implementation, this can be modified as needed
-        res.send('Handle request method is not implemented.');
+        res.render('dashboard', { title: 'Admin dasboard',  user: req.user });
     }
 }

@@ -1,47 +1,37 @@
-// src/controllers/web/AuthController.ts
 import { Request, Response } from "express";
 import { BaseController } from "./../BaseController";
 import User from "../../models/User";
 import jwt from "jsonwebtoken";
 import { JWT_SECRET } from "../../config/index";
 
-export default class AuthController extends BaseController {
-  // Handle login request
+export default class AuthController {
   public async login(req: Request, res: Response): Promise<void> {
-    console.log("login post",req.session);
-    
     const { email, password } = req.body;
+
     try {
-      // Find user by email
       const user = await User.findOne({ email });
       if (!user) {
-        return this.sendError(res, "User not found", 404);
+        return res.redirect("/admin/login");
       }
 
-      // Check if password is correct
       const isMatch = await user.comparePassword(password);
       if (!isMatch) {
-        return this.sendError(res, "Incorrect password", 401);
+        return res.redirect("/admin/login");
       }
 
-      // Generate JWT token
-      const token = jwt.sign({ id: user._id }, JWT_SECRET, { expiresIn: "1h" });
+      // Passport will handle session management; no need for manual JWT handling
+      req.login(user, (err) => {
+        if (err) {
+          console.error("Login error:", err);
+          return res.redirect("/admin/login");
+        }
+        // Redirect to the dashboard after successful login
+        return res.redirect("/admin/dashboard");
+      });
 
-      // Store the token in the session
-      if (req.session) {
-        (req.session as { token?: string }).token = token;
-      }
-
-      // Redirect to admin dashboard
-      res.redirect("/admin/dashboard");
     } catch (error) {
       console.error("Login error:", error);
-      this.sendError(res, "An error occurred during login", 500);
+      res.redirect("/admin/login");
     }
-  }
-
-  // Implement abstract method
-  public handleRequest(req: Request, res: Response): void {
-    res.send("Handle request method not implemented yet.");
   }
 }

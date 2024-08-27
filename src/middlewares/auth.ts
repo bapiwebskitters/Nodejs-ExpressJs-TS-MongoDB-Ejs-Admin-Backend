@@ -58,10 +58,31 @@ passport.deserializeUser(async (id: string, done) => {
 });
 
 // Middleware for JWT Authentication (e.g., for API routes)
-export const requireJWTAuth = passport.authenticate('jwt', { session: false });
+// export const requireJWTAuth = passport.authenticate('jwt', { session: false });
+export const requireJWTAuth = (req: any, res: any, next: any) => {
+  passport.authenticate('jwt', { session: false }, (err: any, user: any, info: any) => {
+    if (err) {
+      return res.status(500).json({
+        status: false,
+        message: 'Internal server error'
+      });
+    }
+    if (!user) {
+      return res.status(401).json({
+        status: false,
+        message: 'Unauthorized'
+      });
+    }
+    req.user = user;
+    next();
+  })(req, res, next);
+};
 
 // Middleware for Local Authentication (e.g., for Admin Portal routes)
-export const requireAdminAuth = passport.authenticate('local', {
-  failureRedirect: '/admin/login',
-  session: true
-});
+export const requireAdminAuth = (req: any, res: any, next: any) => {
+  if (req.isAuthenticated()) {
+    return next();
+  }
+  console.error('Authentication failed, redirecting to /admin/login');
+  res.redirect('/admin/login');
+};

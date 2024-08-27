@@ -7,11 +7,11 @@ const routeLabel = require('route-label');
 const router = express.Router();
 const namedRouter = routeLabel(router);
 
-// Create an instance of HomeController
+// Create an instance of HomeController class
 const homeController = new HomeController();
 
 // Define named route for dashboard
-namedRouter.get('admin.dashboard', '/admin/dashboard', requireAdminAuth,homeController.dashboard);
+namedRouter.get('admin.dashboard', '/admin/dashboard', requireAdminAuth, homeController.dashboard);
 
 export default router;
 
