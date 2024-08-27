@@ -5,6 +5,8 @@ import { IUser } from '../interfaces/UserInterface'; // Adjust the path as neede
 const registerType = ["Normal", "Phone", "Google", "Facebook", "Apple"];
 const statusType = ["Active", "Inactive"];
 
+
+
 const UserSchema: Schema<IUser> = new Schema(
   {
     first_name: { type: String, default: "", index: true },
