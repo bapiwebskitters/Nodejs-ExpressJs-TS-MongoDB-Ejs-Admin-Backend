@@ -7,6 +7,9 @@ import session from "express-session";
 import routes from "../routes";
 import expressLayouts from "express-ejs-layouts";
 import { JWT_SECRET } from "../config/index";
+import swaggerUi from 'swagger-ui-express';
+import swaggerJsdoc from 'swagger-jsdoc';
+import swaggerDefinition from '../config/swagger'
 import dotenv from "dotenv";
 dotenv.config();
 
@@ -15,6 +18,15 @@ const setupExpressApp = async (app: Application) => {
   const namedRoutes = new NamedRoutes();
   namedRoutes.extendExpress(app as express.Express);
   namedRoutes.registerAppHelpers(app as express.Express);
+
+  const swaggerSpec = swaggerJsdoc({
+    definition: swaggerDefinition,
+    apis: ['./src/routes/api/*.ts', './src/models/*.ts']
+  });
+  
+  // Serve swagger docs
+  app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+  
 
   // Setup view engine
   app.use(expressLayouts);
