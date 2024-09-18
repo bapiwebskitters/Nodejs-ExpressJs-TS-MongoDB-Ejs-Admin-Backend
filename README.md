@@ -125,7 +125,7 @@ This will compile the TypeScript files and start the Express server.
 - **Admin Portal :** Uses EJS templates for rendering the admin dashboard and other pages.
 - **API for Mobile Application :** Provides RESTful API endpoints for mobile clients.
 - **Authentication :** Implements Passport.js for both local and JWT authentication.
-- **File Uploads: Uses Multer to handle file uploads for the web and API routes.
+- **File Uploads:** Uses Multer to handle file uploads for the web and API routes.
 - **Validation :** Uses Joi for request validation in both web and API routes.
 - **Caching :** Integrates Redis for session management and caching.
 - **Named Routes :**
