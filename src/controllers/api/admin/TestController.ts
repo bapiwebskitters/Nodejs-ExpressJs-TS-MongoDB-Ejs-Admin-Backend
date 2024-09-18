@@ -6,7 +6,7 @@ import {
   Post,
   Put,
   Delete,
-} from "../../decorators/swagger.decorator";
+} from "../../../decorators/swagger.decorator";
 
 @ApiTags("Services")
 export default class TestController {

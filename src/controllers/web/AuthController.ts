@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { BaseController } from "./../BaseController";
+import { BaseController } from "../api/BaseController";
 import User from "../../models/User";
 import jwt from "jsonwebtoken";
 import { JWT_SECRET } from "../../config/index";

@@ -1,9 +1,9 @@
 import { Request, Response } from "express";
 import jwt from "jsonwebtoken";
-import User from "../../models/User";
-import { JWT_SECRET } from "../../config/index";
-import { UserRepository } from "../../repository/UserRepository";
-import { ApiBody, ApiOperation, ApiResponse, ApiTags, Post } from "../../decorators/swagger.decorator";
+import User from "../../../models/User";
+import { JWT_SECRET } from "../../../config/index";
+import { UserRepository } from "../../../repository/UserRepository";
+import { ApiBody, ApiOperation, ApiResponse, ApiTags, Post } from "../../../decorators/swagger.decorator";
 
 // Initialize UserRepository
 const userRepository = new UserRepository();

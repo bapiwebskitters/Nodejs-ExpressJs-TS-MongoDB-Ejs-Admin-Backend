@@ -1,11 +1,11 @@
 // src/controllers/api/UserController.ts
 import { Request, Response } from "express";
-import User from "../../models/User";
-import Role from "../../models/Role";
+import User from "../../../models/User";
+import Role from "../../../models/Role";
 import {
   userCreateSchema,
   userUpdateSchema,
-} from "../../validations/user.validation";
+} from "../../../validations/user.validation";
 
 export default class UserController {
   // List all users with their roles and permissions

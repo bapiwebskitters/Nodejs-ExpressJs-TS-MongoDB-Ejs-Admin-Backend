@@ -1,6 +1,6 @@
 // src/routes/web/auth.ts
 import express from "express";
-import UserController from "../../controllers/api/UserController";
+import UserController from "../../controllers/api/admin/UserController";
 import { requireJWTAuth } from "../../middlewares/auth";
 
 const routeLabel = require("route-label");

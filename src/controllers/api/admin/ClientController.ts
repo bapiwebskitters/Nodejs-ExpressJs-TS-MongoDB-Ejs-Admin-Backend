@@ -1,9 +1,9 @@
 import { Request, Response } from "express";
-import { clientUpdateSchema, clientCreateSchema } from "../../validations/client.validation";
-import { UserRepository } from "../../repository/UserRepository";
-import Role from "../../models/Role";
+import { clientUpdateSchema, clientCreateSchema } from "../../../validations/client.validation";
+import { UserRepository } from "../../../repository/UserRepository";
+import Role from "../../../models/Role";
 import mongoose from "mongoose";
-import { BrachRepository } from "../../repository/branchRepository";
+import { BrachRepository } from "../../../repository/branchRepository";
 
 import {
     ApiBody,
@@ -14,7 +14,7 @@ import {
     Get,
     Post,
     Put,
-} from "../../decorators/swagger.decorator";
+} from "../../../decorators/swagger.decorator";
 
 const clientRepo = new UserRepository();
 const branchRepo = new BrachRepository()

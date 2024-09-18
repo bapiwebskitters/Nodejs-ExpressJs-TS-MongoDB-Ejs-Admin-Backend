@@ -1,7 +1,7 @@
 // src/controllers/api/PermissionController.ts
 import { Request, Response } from "express";
-import Permission from "../../models/Permission";
-import { createPermissionSchema } from "../../validations/permission.validation";
+import Permission from "../../../models/Permission";
+import { createPermissionSchema } from "../../../validations/permission.validation";
 import { ValidationError } from "joi";
 
 export default class PermissionController {

@@ -1,11 +1,11 @@
-import { ServiceRepository } from "../../repository/ServiceRepository";
+import { ServiceRepository } from "../../../repository/ServiceRepository";
 import { Request, Response } from 'express';
-import Service from "../../models/Service";
+import Service from "../../../models/Service";
 import {
   serviceCreateSchema,
   serviceUpdateSchema,
   servicePaginateSchema,
-} from "../../validations/service.validation";
+} from "../../../validations/service.validation";
 import {
   ApiBody,
   ApiOperation,
@@ -15,7 +15,7 @@ import {
   Get,
   Post,
   Put,
-} from "../../decorators/swagger.decorator";
+} from "../../../decorators/swagger.decorator";
 const ServiceRepo = new ServiceRepository();
 
 @ApiTags("Services")

@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
-import { branchCreateSchema, branchUpdateSchema } from "../../validations/branch.validadtion";
-import { BrachRepository } from "../../repository/branchRepository";
-import { IResponse } from "../../interfaces/IResponse";
+import { branchCreateSchema, branchUpdateSchema } from "../../../validations/branch.validadtion";
+import { BrachRepository } from "../../../repository/branchRepository";
+import { IResponse } from "../../../interfaces/IResponse";
 import mongoose from "mongoose";
 const branchRepo = new BrachRepository();
 
@@ -15,7 +15,7 @@ import {
     Get,
     Post,
     Put,
-} from "../../decorators/swagger.decorator";
+} from "../../../decorators/swagger.decorator";
 
 
 interface PaginationRequest {

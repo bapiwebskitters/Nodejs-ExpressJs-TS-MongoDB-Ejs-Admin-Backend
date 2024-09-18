@@ -1,11 +1,11 @@
 import { Request, Response } from "express";
-import Role from "../../models/Role";
-import Permission from "../../models/Permission";
-import RolePermission from "../../models/RolePermission";
+import Role from "../../../models/Role";
+import Permission from "../../../models/Permission";
+import RolePermission from "../../../models/RolePermission";
 import {
   createRoleSchema,
   permissionIdsSchema,
-} from "../../validations/role.validation";
+} from "../../../validations/role.validation";
 
 export default class RoleController {
   // List all roles with their permissions

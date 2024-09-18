@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
-import User from "../../models/User";
-import Role from "../../models/Role";
-import Permission from "../../models/Permission";
+import User from "../../../models/User";
+import Role from "../../../models/Role";
+import Permission from "../../../models/Permission";
 
 export default class HomeController {
   // List all users with their roles and permissions
