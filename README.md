@@ -13,9 +13,11 @@ This is a Node.js project using Express, TypeScript, and MongoDB, designed to ha
 ```plaintext
 project-root/
 │
+├── public/                 # Static files (CSS, images, etc.)               
 ├── src/
 │   ├── config/             # Configuration files (e.g., database, Redis, passport)
 │   │   ├── index.ts
+│   │   ├── swagger.ts
 │   ├── controllers/        # Controllers for handling requests
 │   │   ├── web/            # Controllers for web (admin portal) routes
 │   │   │   ├── admin.ts 
@@ -28,6 +30,8 @@ project-root/
 │   │   │   ├── product.ts
 │   │   │   ├── index.ts 
 │   │   ├── index.ts        # Main controller index
+│   ├── decorators/         # decorators for custom decorators
+│   │   ├── swagger.decorator.ts 
 │   ├── interfaces/         # Interfaces pattern for data access
 │   ├── middlewares/        # Custom middleware (auth, file uploads, validation)
 │   │   ├── auth.ts
@@ -39,7 +43,9 @@ project-root/
 │   │   ├── role.ts
 │   │   ├── category.ts
 │   │   ├── brand.ts
-│   ├── repository/         # Repository pattern for data access
+│   ├── repository/         # Repository pattern for data access  BaseRepository.ts
+│   │   ├── BaseRepository.ts
+│   │   ├── TestRepository.ts
 │   ├── routes/             # Route definitions for different parts of the application
 │   │   ├── web/            # Web routes for the Admin portal (EJS)
 │   │   │   ├── admin.ts    # Admin dashboard routes
@@ -57,6 +63,7 @@ project-root/
 │   │   ├── ExpressApp.ts   
 │   ├── types/              # TypeScript type definitions (interfaces, enums, etc.)
 │   ├── utils/              # Utility functions (e.g., validation helpers, caching helpers)
+│   ├── validations/        # Validations functions (e.g., validation helpers, caching helpers)
 │   ├── views/              # EJS views for the admin portal
 │   │   ├── layouts/        # EJS layouts for the admin portal
 │   │   │   ├── mainlayout.ejs
@@ -71,8 +78,8 @@ project-root/
 │   │   ├── login.ejs
 │   │   ├── dashboard.ejs
 │   └── app.ts              # Main Express app entry point
-├── public/                 # Static files (CSS, images, etc.)
 ├── .env                    # Environment variables
+├── .env.example            # Environment variables
 ├── tsconfig.json           # TypeScript configuration
 ├── package.json            # Dependencies and scripts
 └── README.md               # Project documentation

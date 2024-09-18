@@ -14,7 +14,7 @@ import {
     Get,
     Post,
     Put,
-} from "../../decorators/Swagger";
+} from "../../decorators/swagger.decorator";
 
 const clientRepo = new UserRepository();
 const branchRepo = new BrachRepository()

@@ -1,6 +1,6 @@
 import express, { Express } from "express";
 import swaggerUi from "swagger-ui-express";
-import { getSwaggerMetadata, getControllerTags } from "../decorators/Swagger";
+import { getSwaggerMetadata, getControllerTags } from "../decorators/swagger.decorator";
 import fs from "fs";
 import path from "path";
 

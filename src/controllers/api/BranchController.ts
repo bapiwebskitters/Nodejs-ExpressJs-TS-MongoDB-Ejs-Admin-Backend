@@ -15,7 +15,7 @@ import {
     Get,
     Post,
     Put,
-} from "../../decorators/Swagger";
+} from "../../decorators/swagger.decorator";
 
 
 interface PaginationRequest {
