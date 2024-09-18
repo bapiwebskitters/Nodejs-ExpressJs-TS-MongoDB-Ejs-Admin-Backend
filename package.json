@@ -32,6 +32,7 @@
     "passport-jwt": "^4.0.1",
     "passport-local": "^1.0.0",
     "redis": "^4.7.0",
+    "reflect-metadata": "^0.2.2",
     "route-label": "^1.2.3",
     "swagger-jsdoc": "^6.2.8",
     "swagger-ui-express": "^5.0.1"

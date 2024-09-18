@@ -90,7 +90,7 @@ function generateSwaggerDocs() {
     },
     servers: [
       {
-        url: "http://localhost:1804/api",
+        url: "http://localhost:5000/api",
         description: "Development server",
       },
       {
