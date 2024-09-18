@@ -1,20 +1,25 @@
-import { Document } from 'mongoose';
+import mongoose, { Document, Types } from 'mongoose';
 
 export interface IUser extends Document {
-  first_name: string;
-  last_name: string;
-  full_name: string;
-  username: string;
-  role: string;  // Adjust according to your schema, could be ObjectId if referring to another model
-  phone: string;
+  first_name?: string;
+  last_name?: string;
+  username?: string;
+  role: mongoose.Types.ObjectId;
   email: string;
-  dob: string | null;
   password: string;
-  profile_image: string;
-  registerType: 'Normal' | 'Phone' | 'Google' | 'Facebook' | 'Apple';
-  otp: string;
-  otp_updatedAt: Date | null;
-  isDeleted: boolean;
-  status: 'Active' | 'Inactive';
+  status: "Active" | "Inactive";
   comparePassword(password: string): Promise<boolean>;
+  full_name: string;
+  branch_id?: Types.ObjectId | null;
+  phone?: string;
+  contact_person?: string;
+  contact_person_phone?: string;
+  house_no?: string;
+  address?: string;
+  city?:string;
+  zipcode?:string;
+  state?: string;
+  landmark?: string;
+  profile_image?: string;
+  isDeleted:boolean
 }

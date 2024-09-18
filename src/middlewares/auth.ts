@@ -73,6 +73,8 @@ export const requireJWTAuth = (req: any, res: any, next: any) => {
         message: 'Unauthorized'
       });
     }
+
+    // console.log("user",user)
     req.user = user;
     next();
   })(req, res, next);

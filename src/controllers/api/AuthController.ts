@@ -3,12 +3,24 @@ import jwt from "jsonwebtoken";
 import User from "../../models/User";
 import { JWT_SECRET } from "../../config/index";
 import { UserRepository } from "../../repository/UserRepository";
+import { ApiBody, ApiOperation, ApiResponse, ApiTags, Post } from "../../decorators/Swagger";
 
 // Initialize UserRepository
 const userRepository = new UserRepository();
 
+@ApiTags("Authentication")
 export default class AuthController {
-  // Handle user registration
+  @Post("/auth/register")
+  @ApiOperation("Register a user")
+  @ApiBody({
+    type: "object",
+    properties: {
+      email: { type: "string" },
+      password: { type: "string" },
+    },
+  })
+  @ApiResponse(200, "User registered successfully")
+  @ApiResponse(401, "Invalid credentials")
   public async register(req: Request, res: Response) {
     const { email, password, first_name, last_name } = req.body;
 
@@ -61,7 +73,17 @@ export default class AuthController {
     }
   }
 
-  // Handle user login
+  @Post("/auth/login")
+  @ApiOperation("Login a user")
+  @ApiResponse(200, "User logged in successfully")
+  @ApiResponse(401, "Invalid credentials")
+  @ApiBody({
+    type: "object",
+    properties: {
+      email: { type: "string" },
+      password: { type: "string" },
+    },
+  })
   public async login(req: Request, res: Response) {
     const { email, password } = req.body;
 
@@ -90,15 +112,24 @@ export default class AuthController {
       // Generate JWT token
       const token = jwt.sign({ id: user._id }, JWT_SECRET, { expiresIn: "1h" });
 
+      const getUser = await User.findById(user?._id).populate({
+        path: "role_data", // Populate role data
+        populate: {
+          path: "permissions", // Populate permissions through the RolePermission model
+          populate: {
+            path: "permission", // Populate the actual Permission data
+            model: "Permission",
+          },
+          model: "RolePermission",
+        },
+      });
       // Send JWT token
       const response = {
         status: 200,
         message: "Login success",
         success: true,
-        data: {
-          user,
-          token,
-        },
+        userData: getUser,
+        accessToken: token,
       };
       return res.status(200).json(response);
     } catch (error) {

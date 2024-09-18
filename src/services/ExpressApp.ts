@@ -7,9 +7,7 @@ import session from "express-session";
 import routes from "../routes";
 import expressLayouts from "express-ejs-layouts";
 import { JWT_SECRET } from "../config/index";
-import swaggerUi from 'swagger-ui-express';
-import swaggerJsdoc from 'swagger-jsdoc';
-import swaggerDefinition from '../config/swagger'
+import cors from "cors";
 import dotenv from "dotenv";
 dotenv.config();
 
@@ -18,26 +16,22 @@ const setupExpressApp = async (app: Application) => {
   const namedRoutes = new NamedRoutes();
   namedRoutes.extendExpress(app as express.Express);
   namedRoutes.registerAppHelpers(app as express.Express);
-
-  const swaggerSpec = swaggerJsdoc({
-    definition: swaggerDefinition,
-    apis: ['./src/routes/api/*.ts', './src/models/*.ts']
-  });
-  
-  // Serve swagger docs
-  app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
-  
-
+  // Configure CORS
+  app.use(
+    cors({
+      origin: "*",
+      methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+      allowedHeaders: ["Content-Type", "Authorization"],
+    })
+  );
   // Setup view engine
   app.use(expressLayouts);
   app.set("view engine", "ejs");
   app.set("views", path.join(__dirname, "../views"));
   app.set("layout", "layouts/mainlayout");
-  
   //
   const imagePath = path.join(__dirname, "../public/images");
   app.use("/images", express.static(imagePath));
-
   // Middleware setup
   app.use(express.json());
   app.use(express.urlencoded({ extended: true }));
@@ -54,11 +48,9 @@ const setupExpressApp = async (app: Application) => {
       },
     })
   );
-
   // Initialize Passport
   app.use(passport.initialize());
   app.use(passport.session());
-
   // Initialize Routes
   app.use(routes);
 

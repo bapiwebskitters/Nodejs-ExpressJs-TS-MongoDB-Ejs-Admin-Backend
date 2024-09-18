@@ -1,55 +1,73 @@
-import mongoose, { Schema, model, Document } from "mongoose";
+// src/models/User.ts
+import mongoose, { Schema, Model, Document } from "mongoose";
 import bcrypt from "bcrypt";
-import { IUser } from '../interfaces/UserInterface'; // Adjust the path as needed
+import { IUser } from "../interfaces/UserInterface";
 
-const registerType = ["Normal", "Phone", "Google", "Facebook", "Apple"];
-const statusType = ["Active", "Inactive"];
-
-
-
-const UserSchema: Schema<IUser> = new Schema(
+const userSchema: Schema<IUser> = new Schema(
   {
-    first_name: { type: String, default: "", index: true },
-    last_name: { type: String, default: "", index: true },
-    full_name: { type: String, default: "", index: true },
-    username: { type: String, default: "", index: true },
-    // role: { type: Schema.Types.ObjectId, ref: "Role", index: true },
-    phone: { type: String, default: "", index: true },
-    email: { type: String, default: "", index: true },
-    dob: { type: String, default: null },
-    password: { type: String, default: "" },
-    profile_image: { type: String, default: "" },
-    registerType: { type: String, default: "Normal", enum: registerType },
-    otp: { type: String, default: "" },
-    otp_updatedAt: { type: Date, default: null },
-    isDeleted: { type: Boolean, default: false, index: true },
-    status: { type: String, default: "Active", enum: statusType, index: true },
+    first_name: { type: String, required: true },
+    last_name: { type: String, required: true },
+    username: { type: String, required: true, unique: true },
+    role: { type: mongoose.Schema.Types.ObjectId, ref: "Role", required: true },
+    email: { type: String, required: true, unique: true },
+    password: { type: String, required: true },
+    full_name:{type: String, required: true , index:true},
+    branch_id:{type:Schema.Types.ObjectId, ref: 'Branch', default: null},
+    phone:{type:String, default:''},
+    contact_person:{type:String, default:''},
+    contact_person_phone:{type:String, default:''},
+    house_no :{type:String, default:''},
+    address:{type:String, default:''},
+    city:{type:String, default:''},
+    zipcode:{type:String, default:''},
+    state:{type:String, default:''},
+    landmark:{type:String, default:''},
+    profile_image: { type: String, default: '' },
+    status: { type: String, enum: ["Active", "Inactive"], default: "Active" },
+    isDeleted:{type: Boolean, default:false}
   },
-  { versionKey: false, timestamps: true }
+  { timestamps: true, versionKey: false }
 );
 
-// Hash the user's password before saving
-UserSchema.pre<IUser>("save", async function (next) {
-  if (!this.isModified("password")) return next();
+// Ensure indexes for unique fields
+userSchema.index({ username: 1 }, { unique: true });
+userSchema.index({ email: 1 }, { unique: true });
 
+// Virtual field for role data
+userSchema.virtual("role_data", {
+  ref: "Role",
+  localField: "role",
+  foreignField: "_id",
+  justOne: true,
+});
+
+// Password hashing
+userSchema.pre<IUser>("save", async function (next) {
   try {
+    if (!this.isModified("password")) return next();
     const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash(this.password, salt);
-    this.password = hashedPassword;
+    this.password = await bcrypt.hash(this.password, salt);
     next();
   } catch (error) {
-    next(error as Error); // Type assertion to Error
+    next(error as Error);
   }
 });
 
-// Method to compare provided password with stored hashed password
-UserSchema.methods.comparePassword = async function (
+// Method to compare passwords
+userSchema.methods.comparePassword = function (
   password: string
 ): Promise<boolean> {
   return bcrypt.compare(password, this.password);
 };
 
-// Create and export the User model
-const User = model<IUser>("User", UserSchema);
+// Method to check if the user's role matches the provided role ID
+userSchema.methods.hasRole = function (
+  roleId: mongoose.Types.ObjectId
+): boolean {
+  return this.role.toString() === roleId.toString();
+};
 
+userSchema.set("toJSON", { virtuals: true });
+
+const User: Model<IUser> = mongoose.model<IUser>("User", userSchema);
 export default User;

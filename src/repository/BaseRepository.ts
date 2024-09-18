@@ -16,7 +16,7 @@ export abstract class BaseRepository<T extends Document> {
       throw new Error('Error saving document');
     }
   }
-
+   
   // Retrieve a document by its ID
   async getById(id: string | Types.ObjectId): Promise<T | null> {
     try {
