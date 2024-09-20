@@ -1,4 +1,3 @@
-// src/routes/index.ts
 import { Router, Request, Response, NextFunction } from 'express';
 import webRoutes from './web';
 import apiRoutes from './api';

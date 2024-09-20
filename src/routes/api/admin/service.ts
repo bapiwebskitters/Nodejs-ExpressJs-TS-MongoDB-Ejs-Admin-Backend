@@ -1,7 +1,7 @@
 // src/routes/web/auth.ts
 import express from "express";
-import ServiceController from "../../controllers/api/admin/ServiceController";
-import { requireJWTAuth } from "../../middlewares/auth";
+import ServiceController from "../../../controllers/api/admin/ServiceController";
+import { requireJWTAuth } from "../../../middlewares/auth";
 
 const routeLabel = require("route-label");
 const router = express.Router();

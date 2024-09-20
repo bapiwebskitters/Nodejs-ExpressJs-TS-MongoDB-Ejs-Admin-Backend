@@ -1,9 +1,9 @@
 // src/routes/web/auth.ts
 import express from "express";
-import BranchController from "../../controllers/api/admin/BranchController";
-import { requireJWTAuth } from "../../middlewares/auth";
-import ClientController from "../../controllers/api/admin/ClientController";
-import { upload } from "../../middlewares/upload";
+import BranchController from "../../../controllers/api/admin/BranchController";
+import { requireJWTAuth } from "../../../middlewares/auth";
+import ClientController from "../../../controllers/api/admin/ClientController";
+import { upload } from "../../../middlewares/upload";
 
 const routeLabel = require("route-label");
 const router = express.Router();

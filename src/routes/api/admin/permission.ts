@@ -1,7 +1,7 @@
 // src/routes/web/permission.ts
 import express from "express";
-import PermissionController from "../../controllers/api/admin/PermissionController";
-import { requireJWTAuth } from "../../middlewares/auth";
+import PermissionController from "../../../controllers/api/admin/PermissionController";
+import { requireJWTAuth } from "../../../middlewares/auth";
 
 const routeLabel = require("route-label");
 const router = express.Router();

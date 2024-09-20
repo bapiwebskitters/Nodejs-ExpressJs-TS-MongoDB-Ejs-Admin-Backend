@@ -1,6 +1,6 @@
 import express from "express";
-import RoleController from "../../controllers/api/admin/RoleController";
-import { requireJWTAuth } from "../../middlewares/auth";
+import RoleController from "../../../controllers/api/admin/RoleController";
+import { requireJWTAuth } from "../../../middlewares/auth";
 
 const routeLabel = require("route-label");
 const router = express.Router();

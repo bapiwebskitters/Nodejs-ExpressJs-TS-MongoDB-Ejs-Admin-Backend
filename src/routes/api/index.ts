@@ -1,22 +1,10 @@
-// src/routes/api/index.ts
-import { Router } from 'express';
-import authRoutes from './auth';
-import userRoutes from './user';
-import PermissionRoutes from "./permission";
-import roleRoutes from "./role";
-import brunchRoutes from "./branch";
-import serviceRoutes from "./service";
-import clientRoutes  from './client';
+import { Router } from "express";
+import adminRoutes from "../api/admin";
+import frontRoutes from "./frontend";
 
 const router = Router();
 
-router.use(authRoutes);
-router.use(userRoutes);
-router.use(PermissionRoutes);
-router.use(roleRoutes);
-router.use(brunchRoutes);
-router.use(serviceRoutes);
-router.use(brunchRoutes)
-router.use(clientRoutes)
+router.use("admin", adminRoutes);
+router.use(frontRoutes);
 
 export default router;
